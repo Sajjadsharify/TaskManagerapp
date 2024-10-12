@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskManagerapp.SmsPage"
+             Title="SmsPage"
+             BackgroundColor="#4a4bbf">
+    <StackLayout>
+        <Image
+            Source="Resources/Images/codeverification.png" 
+                       WidthRequest="150"
+                       Scale="2.7"
+                       Margin="0, 129, 0, 0"/>
+        <Image
+    Source="Resources/Images/sms.png" 
+               WidthRequest="150"
+               Scale="1.4"
+               Margin="30, -95, 0, 0"/>
+        <Frame
+            WidthRequest="250"
+            Padding="9"
+            BackgroundColor="White">
+            <Entry
+                
+                HorizontalTextAlignment="Center"
+                FontAttributes="Italic"
+                Keyboard="Numeric"
+                PlaceholderColor="#4a4bbf"
+                FontSize="30"
+                MaxLength="5"
+                Placeholder="SMS Code"/>
+        </Frame>
+        <Label
+            x:Name="timerLabel"
+            Text="3:00"
+            TextColor="White"
+            HorizontalOptions="Center"
+            Margin="0, 30, 0, 0"
+            FontSize="50"/>
+        <Button
+            Text="Verify"
+            BackgroundColor="Green"
+            TextColor="White"
+            BorderColor="White"
+            BorderWidth="1"
+            FontSize="38"
+            FontAttributes="Bold"
+            CornerRadius="30"
+            WidthRequest="358"
+            HeightRequest="93"
+            Margin="0, 30, 0, 20"
+            Clicked="DoneButton"/>
+
+    </StackLayout>
+
+</ContentPage>

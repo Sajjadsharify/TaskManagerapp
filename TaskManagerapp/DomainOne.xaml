@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskManagerapp.DomainOne"
+             Title="Informations">
+
+    <ScrollView>
+        <StackLayout Padding="10">
+            <Image Source="domone.png"             />
+
+            <!-- Search Bar -->
+            <SearchBar Placeholder="Search Members, Groups, or Subdomains" 
+                       SearchButtonPressed="OnSearch" />
+
+            <!-- Bottom of the page -->
+            <Label Text="You're Seeing Domain One Details" 
+                   HorizontalOptions="Center" 
+                   FontSize="Medium" 
+                   Margin="0,10" />
+
+            <!-- Members List -->
+            <Label Text="Members" FontAttributes="Bold" />
+            <ScrollView>
+                <ListView x:Name="MembersListView" 
+                      ItemTapped="OnMemberSelected">
+
+                    <ListView.ItemsSource>
+
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Member 1 - Job Title</x:String>
+                            <x:String>Member 2 - Job Title</x:String>
+                            <x:String>Member 3 - Job Title</x:String>
+                        </x:Array>
+                    </ListView.ItemsSource>
+                </ListView>
+            </ScrollView>
+            <Button Text="Add New Member" Clicked="OnAddNewMemberClicked" />
+
+            <!-- Groups List -->
+            <Label Text="Groups" FontAttributes="Bold" />
+            <ScrollView>
+                <ListView x:Name="GroupsListView" 
+                      ItemTapped="OnGroupSelected">
+                    <ListView.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Group 1 - Job Position</x:String>
+                        </x:Array>
+                    </ListView.ItemsSource>
+                </ListView>
+            </ScrollView>
+            <Button Text="Add New Job" Clicked="OnAddNewJobClicked" />
+
+            <!-- Subdomains List -->
+            <Label Text="Subdomains" FontAttributes="Bold" />
+            <ScrollView>
+                <ListView x:Name="SubdomainsListView" 
+                      ItemTapped="OnSubdomainSelected">
+                    <ListView.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Subdomain 1</x:String>
+                            <x:String>Subdomain 2</x:String>
+                            <x:String>Subdomain 3</x:String>
+                            <x:String>Subdomain 4</x:String>
+                            <x:String>Subdomain 5</x:String>
+                            <x:String>Subdomain 6</x:String>
+                        </x:Array>
+                    </ListView.ItemsSource>
+                </ListView>
+            </ScrollView>
+            <Button Text="Apply New Sub Domain" Clicked="OnApplyNewSubdomainClicked" />
+            <Button Text="Edit Domain" Clicked="EditdomainClicked" BackgroundColor="White" FontSize="15" TextColor="#4a4bba" FontAttributes="Bold" BorderWidth="1" BorderColor="#4a4bba"  Margin="5"/>
+
+            <!-- Action Buttons -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text="Cancel" 
+                        BackgroundColor="Red" 
+                        TextColor="White" 
+                        Clicked="OnCancelClicked" />
+                <Button Text="Save" 
+                        BackgroundColor="Green" 
+                        TextColor="White" 
+                        Clicked="OnSaveClicked" />
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

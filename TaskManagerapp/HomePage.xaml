@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskManagerapp.HomePage"
+             Title="HomePage"
+             BackgroundColor="#4a4bbf">
+
+    <Grid>
+
+        <Label Text="Admin Message" TextColor="White" Margin="23, 109,0,0" FontAttributes="Bold" />
+
+        <Grid 
+            x:Name="MainContent">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer 
+                    Tapped="OnMainContentTapped" />
+            </Grid.GestureRecognizers>
+            <StackLayout>
+                <Image Source="admessage.png" Scale="0.143" VerticalOptions="Start" Margin="-249,-260,0,0" x:Name="Admin" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer 
+                              Tapped="OnImageTapped"
+          NumberOfTapsRequired="1" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label
+                    Text="Task Manager"
+                    TextColor="White"
+                    FontSize="46"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Margin="30, -230, 0, 0"/>
+
+                <Button 
+                    Clicked="OnMenuClicked" 
+                    BackgroundColor="Transparent"
+                    CornerRadius="35"
+                    WidthRequest="50"
+                    HeightRequest="50"
+                    Margin="0,-49,320,0"
+                    Scale="2.41"
+                    ImageSource="Resources/Images/menuicon.png"/>
+                <Button
+                    Text="People"
+                    BackgroundColor="white"
+                    TextColor="#4a4bba"
+                    FontSize="40"
+                    FontAttributes="Bold"
+                    CornerRadius="18"
+                    WidthRequest="302"
+                    HeightRequest="73"
+                    Margin="0, 30, 0, 20"
+                    Clicked="peopleButton"/>
+                <Button
+                    Text="Domain"
+                    BackgroundColor="White"
+                    TextColor="#4a4bba"
+                    FontSize="40"
+                    FontAttributes="Bold"
+                    CornerRadius="18"
+                    WidthRequest="302"
+                    HeightRequest="73"
+                    Margin="0, 30, 0, 20"
+                    Clicked="domainButton"/>
+                <Button
+                    Text="Tasks"
+                    BackgroundColor="White"
+                    TextColor="#4a4bba"
+                    FontSize="40"
+                    FontAttributes="Bold"
+                    CornerRadius="18"
+                    WidthRequest="302"
+                    HeightRequest="73"
+                    Margin="0, 30, 0, 20"
+                    Clicked="taskButton"/>
+                <Image Source="menubar.png" Margin="0,100,0,0"/>
+
+            </StackLayout>
+        </Grid>
+
+        <Grid
+            x:Name="FlyoutMenu" 
+            BackgroundColor="White" 
+            WidthRequest="300"
+            HeightRequest="800"
+            Margin="-200,0,0,0"
+            IsVisible="False"
+            TranslationX="-100">
+
+            <Grid BackgroundColor="white"  >
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Button 
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    BackgroundColor="#4a4bba"
+                    CornerRadius="2"
+                    WidthRequest="107"
+                    HeightRequest="40"
+                    Margin="-50,-300,-50,-100"
+                    Clicked="ProfileImageClicked" 
+                    ImageSource="Resources/Images/profilep.png"
+                    Scale="2.75"/>
+                <Button 
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    BackgroundColor="#4a4bba"
+                    CornerRadius="2"
+                    WidthRequest="107"
+                    HeightRequest="40"
+                    Margin="-50,-500,-50,-300"
+                    ImageSource="Resources/Images/task.png"
+                    Clicked="TasksImageClicked"
+                    Scale="2.75"/>
+
+                <Button 
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    BackgroundColor="#4a4bba"
+                    CornerRadius="2"
+                    WidthRequest="106"
+                    HeightRequest="40"
+                    Margin="-50,-700,-50,-500"
+                    Clicked="GroupsImageClicked"
+                    ImageSource="Resources/Images/group.png"
+                    Scale="2.77"/>
+
+                <Button 
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    BackgroundColor="#4a4bba"
+                    CornerRadius="2"
+                    WidthRequest="107"
+                    HeightRequest="40"
+                    Margin="-50,-900,-50,-700"
+                    ImageSource="Resources/Images/massage.png"
+                    Scale="3"/>
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Text="Members"
+                    FontAttributes="Bold"
+                    TextColor="Black"
+                    BackgroundColor="White"
+                    FontSize="15" 
+                    CornerRadius="35"
+                    WidthRequest="100"
+                    HeightRequest="40"
+                    Margin="-70,-300,0,-100"
+                    Clicked="MemberClicked"/>
+                <Button 
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Text="Tasks" 
+                    FontAttributes="Bold"
+                    TextColor="Black"
+                    FontSize="15" 
+                    CornerRadius="35"
+                    WidthRequest="100"
+                    HeightRequest="40"
+                    Margin="-70,-500,0,-300"
+                    BackgroundColor="White"
+                    Clicked="TasksClicked" />
+                <Button 
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Text="Groups"
+                    FontAttributes="Bold"
+                    TextColor="Black"
+                   FontSize="15" 
+                   CornerRadius="35"
+                   WidthRequest="100"
+                   HeightRequest="40"
+                   Margin="-70,-700,0,-500"
+                    BackgroundColor="White"
+                    Clicked="GroupsClicked" />
+                <Button 
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Text="Contact Us -"
+                    FontAttributes="Bold"
+                    TextColor="Black"
+                   FontSize="15" 
+                   CornerRadius="35"
+                   WidthRequest="120"
+                   HeightRequest="40"
+                   Margin="-70,-900,0,-700"
+                    BackgroundColor="White"
+                    />
+                <Label Text="Developed By CPSA" Grid.Row="15" Grid.Column="1" Margin="-40,79.5,0,0" FontSize="14.5" TextColor="#4a4bba"/>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskManagerapp.MainPage"
+             Title="LoginPage"
+             BackgroundColor="#4a4bbf">
+
+
+    <StackLayout>
+        <Image 
+         Source="Resources/Images/taskmanagerapp.png"
+            Scale="0.65"
+            Margin="0,-159,0,0"
+         
+         />
+
+        <Image
+            Source="Resources/Images/loginlogo.png"
+            Scale="1.5"
+            WidthRequest="150"
+            Margin="0, 0, 0, 40"/>
+        <Frame
+            Padding="10"
+            BackgroundColor="#FBEAEB"
+            WidthRequest="350"
+            CornerRadius="44">
+            <Entry
+                x:Name="userNameEntry"
+                Placeholder="User Name"
+                FontSize="18"
+                PlaceholderColor="#4a4bbf"
+                HorizontalTextAlignment="Center"
+                />
+        </Frame>
+        <Frame
+            Margin="0, 15, 0, 0"
+            WidthRequest="350"
+            Padding="8.5"
+            BackgroundColor="#FBEAEB"
+            CornerRadius="44">
+            <Entry
+                x:Name="passwordEntry"
+                Placeholder="Password"
+                PlaceholderColor="#4a4bbf"
+                FontSize="18"
+                HorizontalTextAlignment="Center"
+                IsPassword="True"/>
+        </Frame>
+        <Button
+            BackgroundColor="#4a4bbf"
+            BorderColor="White"
+            FontAttributes="Bold"
+            BorderWidth="2"
+            Scale="0.8"
+            
+            WidthRequest="200"
+            Margin="0, 20, 90, 0"
+            HorizontalOptions="End"
+            Text="Show Password"
+            FontSize="15"
+            Clicked="PasswordShow"/>
+
+
+        <Button
+            BackgroundColor="#4a4bbf"
+            BorderColor="White"
+            BorderWidth="2"
+            Margin="0, 20, 0, 10"
+            WidthRequest="300"
+            HeightRequest="50"
+            CornerRadius="50"
+            Text="Login"
+            TextColor="White"
+            FontSize="20"
+            FontAttributes="Bold"
+            Clicked="LoginButton"/>
+
+        <Button
+            Margin="0, 20, 0, 0"
+            BackgroundColor="Red"
+            Text="Forgot Password"
+            TextColor="White"
+            FontAttributes="Bold"
+            />
+    </StackLayout>
+
+</ContentPage>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskManagerapp.DomainsAndSubdomains"
+             Title="DomainsAndSubdomains">
+    <Grid Padding="10" RowDefinitions="Auto,*,Auto,*,Auto">
+
+        <!-- Search Entry -->
+        <Entry 
+            x:Name="SearchEntry" 
+            Placeholder="Search"
+            TextChanged="OnSearchTextChanged" 
+            TextColor="#4a4bba"
+            Grid.Row="0" />
+
+        <!-- Domains Section -->
+        <Frame Grid.Row="1" BackgroundColor="#F0F0F0" CornerRadius="10" HasShadow="True" Padding="10" Margin="0,10,0,10">
+            <StackLayout>
+                <Label Text="Domains" FontSize="Large" HorizontalTextAlignment="Center" TextColor="#4a4bba" FontAttributes="Bold" />
+
+                <ListView 
+                    x:Name="domainListView" 
+                    ItemsSource="{Binding FilteredDomains}" 
+                    HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItem 
+                                                Text="Delete" 
+                                                BackgroundColor="Red" 
+                                                Invoked="OnDeleteDomain"/>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+
+                                    <Grid Padding="10" ColumnDefinitions="Auto,*,*">
+                                        <Image 
+                                            Source="profileone.png"
+                                            WidthRequest="60" 
+                                            HeightRequest="50" 
+                                            VerticalOptions="CenterAndExpand" 
+                                            Aspect="AspectFill" />
+
+                                        <StackLayout Grid.Column="1" VerticalOptions="CenterAndExpand">
+                                            <Label Text="{Binding DomainName}" FontSize="Medium" VerticalOptions="CenterAndExpand" />
+                                            <!--" <Label Text="{Binding SubdomainName}" FontSize="Small" TextColor="Gray" VerticalOptions="CenterAndExpand" />-->
+                                        </StackLayout>
+
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnDomainTapped" />
+                                        </Grid.GestureRecognizers>
+                                    </Grid>
+                                </SwipeView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <!-- Add Domain Button -->
+                <Button 
+                    BorderWidth="1"
+                    BorderColor="White"
+                    Text="Add Domain"
+                    HorizontalOptions="Center" 
+                    VerticalOptions="End" 
+                    CornerRadius="10" 
+                    WidthRequest="350" 
+                    HeightRequest="50" 
+                    BackgroundColor="#4a4bba" 
+                    TextColor="White" 
+                    FontSize="18" 
+                    Clicked="OnAddDomainButtonClicked" />
+            </StackLayout>
+        </Frame>
+
+        <!-- Subdomains Section -->
+        <Frame Grid.Row="3" BackgroundColor="#F0F0F0" CornerRadius="10" Padding="10" Margin="0,10,0,10">
+            <StackLayout>
+                <Label Text="Subdomains" FontSize="Large" TextColor="#4a4bba" HorizontalTextAlignment="Center" FontAttributes="Bold" />
+
+                <ListView 
+                    x:Name="subdomainListView" 
+                    ItemsSource="{Binding FilteredSubdomains}" 
+                    HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItem 
+                                                Text="Delete" 
+                                                BackgroundColor="White" 
+                                                Invoked="OnDeleteSubdomain"/>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+
+                                    <Grid Padding="10" ColumnDefinitions="Auto,*,*">
+                                        <Label Text="{Binding SubdomainName}" FontSize="Medium" VerticalOptions="CenterAndExpand" />
+
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnSubdomainTapped" />
+                                        </Grid.GestureRecognizers>
+                                    </Grid>
+                                </SwipeView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <!-- Add Subdomain Button -->
+                <Button 
+                    Text="Add Subdomain"
+                    BorderWidth="1"
+                    BorderColor="White"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    CornerRadius="10"
+                    WidthRequest="350"
+                    HeightRequest="50"
+                    BackgroundColor="#4a4bba"
+                    TextColor="White"
+                    FontSize="18"
+                    Clicked="OnAddSubdomainButtonClicked" />
+            </StackLayout>
+        </Frame>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskManagerapp.FirstMember"
+             Title="FirstMember">
+    <ScrollView>
+        <StackLayout Padding="20">
+            <!-- UserProfile -->
+            <StackLayout HorizontalOptions="Center" VerticalOptions="End">
+                <Image Source="{Binding UserProfile}" WidthRequest="100" HeightRequest="100" />
+                <Button Text="File" Clicked="OnFileButtonClicked" />
+            </StackLayout>
+
+            <Grid Padding="20, 30, 20, 20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Save and Cancel Buttons -->
+                <Button Text="Save" Grid.Column="0" Clicked="OnSaveButtonClicked" BackgroundColor="Green" TextColor="White"/>
+                <Button Text="Cancel" Grid.Column="1" Clicked="OnCancelButtonClicked" BackgroundColor="Red" TextColor="White"/>
+            </Grid>
+
+            <!-- Name -->
+            <Label Text="{Binding SelectedMember.Name}" FontSize="20" />
+
+            <!-- PhoneNumber -->
+            <Label Text="{Binding SelectedMember.PhoneNumber}" FontSize="20" />
+
+            <!-- Group Section -->
+            <Label Text="Group Section" />
+            <Picker x:Name="groupPicker" Title="Select Groups" SelectedIndexChanged="OnGroupSelected">
+                <!-- Add group options here -->
+            </Picker>
+
+            <!-- Job Title -->
+            <Label Text="Job Title" />
+            <Entry Text="{Binding SelectedMember.JobTitle}" Placeholder="Developer" />
+
+            <!-- Is Admin or Not -->
+            <Label Text="Is Admin?" />
+            <StackLayout Orientation="Horizontal">
+                <RadioButton Content="Yes" GroupName="AdminGroup" Value="True" IsChecked="{Binding IsAdmin}" />
+                <RadioButton Content="No" GroupName="AdminGroup" Value="False" IsChecked="{Binding IsAdmin}" />
+            </StackLayout>
+
+            <!-- Age -->
+            <Label Text="Age" />
+            <Picker x:Name="agePicker" Title="Select Age">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:Int32}">
+                        <x:Int32>20</x:Int32>
+                        <x:Int32>21</x:Int32>
+                        <x:Int32>22</x:Int32>
+                        <x:Int32>23</x:Int32>
+                        <x:Int32>24</x:Int32>
+                        <x:Int32>25</x:Int32>
+                        <x:Int32>26</x:Int32>
+                        <x:Int32>27</x:Int32>
+                        <x:Int32>28</x:Int32>
+                        <x:Int32>29</x:Int32>
+                        <x:Int32>30</x:Int32>
+                        <x:Int32>31</x:Int32>
+                        <x:Int32>32</x:Int32>
+                        <x:Int32>33</x:Int32>
+                        <x:Int32>34</x:Int32>
+                        <x:Int32>35</x:Int32>
+                        <x:Int32>36</x:Int32>
+                        <x:Int32>37</x:Int32>
+                        <x:Int32>38</x:Int32>
+                        <x:Int32>39</x:Int32>
+                        <x:Int32>40</x:Int32>
+                        <x:Int32>41</x:Int32>
+                        <x:Int32>42</x:Int32>
+                        <x:Int32>43</x:Int32>
+                        <x:Int32>44</x:Int32>
+                        <x:Int32>45</x:Int32>
+
+
+                        <!-- Add values up to 70 -->
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <!-- Domain -->
+            <Label Text="Domain" />
+            <Picker x:Name="domainPicker" Title="Select Domain" SelectedIndexChanged="OnDomainSelected">
+                <!-- Add domain options here -->
+            </Picker>
+
+            <!-- Subdomain (can be a secondary picker, shown based on domain selection) -->
+            <Picker x:Name="subDomainPicker" Title="Select Subdomain" IsVisible="False">
+                <!-- Add subdomain options based on selected domain -->
+            </Picker>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
