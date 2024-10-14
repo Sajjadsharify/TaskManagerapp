@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskManagerapp.ProfilePage"
+             >
+    <ScrollView>
+        <StackLayout Padding="20">
+
+            <!-- Profile Picture Frame -->
+            <Frame CornerRadius="100" HeightRequest="165" WidthRequest="165" BackgroundColor="LightGray" HorizontalOptions="Center" Margin="0,0,0,20" BorderColor="#4a4bba" >
+                <Image x:Name="ProfileImage" Source="default_profile.png" Aspect="AspectFill" HeightRequest="165" WidthRequest="165"  />
+            </Frame>
+            <Button Text="Edit" Clicked="OnEditProfilePictureClicked" HorizontalOptions="Center" />
+
+            <!-- Username -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,10">
+                <Label Text="Username:" VerticalOptions="Center" />
+                <Entry x:Name="UsernameEntry" WidthRequest="200" Margin="10,0" />
+            </StackLayout>
+
+            <!-- Name -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="Name:" VerticalOptions="Center" />
+                <Entry x:Name="NameEntry" WidthRequest="200" Margin="10,0" />
+            </StackLayout>
+
+            <!-- Phone Number -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="Phone Number:" VerticalOptions="Center" />
+                <Entry x:Name="PhoneEntry" WidthRequest="200" Margin="10,0" />
+            </StackLayout>
+
+            <!-- Group Section -->
+            <StackLayout>
+                <Label Text="Group:" />
+                <Button Text="GroupOne" Clicked="OnGroupButtonClicked" />
+            </StackLayout>
+
+            <!-- Belonging Domains -->
+            <StackLayout>
+                <Label Text="Belonging Domains:" />
+                <StackLayout x:Name="DomainsStack">
+                    <Label Text="DomainOne" />
+                    <Label Text="DomainTwo" />
+                </StackLayout>
+                <Button Text="Add/Remove Domain" Clicked="OnAddRemoveDomainClicked" />
+            </StackLayout>
+
+            <!-- Belonging Subdomains -->
+            <StackLayout>
+                <Label Text="Belonging Subdomains:" />
+                <StackLayout x:Name="SubdomainsStack">
+                    <Label Text="SubdomainOne" />
+                    <Label Text="SubdomainTwo" />
+                </StackLayout>
+                <Button Text="Add/Remove Subdomain" Clicked="OnAddRemoveSubdomainClicked" />
+            </StackLayout>
+
+            <!-- User Tasks -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,10">
+                <Button Text="Finished Tasks" Clicked="OnFinishedTasksClicked" />
+                <Button Text="To Do Tasks" Clicked="OnToDoTasksClicked" />
+            </StackLayout>
+
+            <!-- Save Button -->
+            <Button Text="Save" BackgroundColor="Green" Clicked="OnSaveClicked" />
+
+            <!-- Close Button -->
+            <Button Text="Close" BackgroundColor="#4a4bba" Clicked="OnCloseClicked" />
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

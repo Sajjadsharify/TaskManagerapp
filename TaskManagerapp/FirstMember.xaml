@@ -1,98 +1,84 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TaskManagerapp.FirstMember"
-             Title="FirstMember">
+             Title="Member Details">
+
     <ScrollView>
         <StackLayout Padding="20">
-            <!-- UserProfile -->
-            <StackLayout HorizontalOptions="Center" VerticalOptions="End">
-                <Image Source="{Binding UserProfile}" WidthRequest="100" HeightRequest="100" />
-                <Button Text="File" Clicked="OnFileButtonClicked" />
+           <Image Source="memberonedetail.png" Scale="1.11" Margin="0,0,0,20" />
+
+            <!-- Profile Image and Edit Button -->
+            <StackLayout HorizontalOptions="Center" Spacing="10">
+                
+                <Frame CornerRadius="100" HeightRequest="165" WidthRequest="165" BackgroundColor="LightGray" HorizontalOptions="Center" Margin="0,0,0,20" BorderColor="#4a4bba" >
+                    <Image x:Name="ProfileImage" Source="default_profile.png" Aspect="AspectFill" HeightRequest="165" WidthRequest="165"  />
+                </Frame>
+                <Button Text="Edit Profile Picture" Clicked="OnEditProfilePictureClicked" />
             </StackLayout>
-
-            <Grid Padding="20, 30, 20, 20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <!-- Save and Cancel Buttons -->
-                <Button Text="Save" Grid.Column="0" Clicked="OnSaveButtonClicked" BackgroundColor="Green" TextColor="White"/>
-                <Button Text="Cancel" Grid.Column="1" Clicked="OnCancelButtonClicked" BackgroundColor="Red" TextColor="White"/>
-            </Grid>
 
             <!-- Name -->
-            <Label Text="{Binding SelectedMember.Name}" FontSize="20" />
+            <Label Text="Name:" FontAttributes="Bold" />
+            <Entry x:Name="NameEntry" Placeholder="Enter Name" />
 
-            <!-- PhoneNumber -->
-            <Label Text="{Binding SelectedMember.PhoneNumber}" FontSize="20" />
+            <!-- Username -->
+            <Label Text="Username:" FontAttributes="Bold" />
+            <Entry x:Name="UsernameEntry" Placeholder="Enter Username" />
 
-            <!-- Group Section -->
-            <Label Text="Group Section" />
-            <Picker x:Name="groupPicker" Title="Select Groups" SelectedIndexChanged="OnGroupSelected">
-                <!-- Add group options here -->
-            </Picker>
-
-            <!-- Job Title -->
-            <Label Text="Job Title" />
-            <Entry Text="{Binding SelectedMember.JobTitle}" Placeholder="Developer" />
-
-            <!-- Is Admin or Not -->
-            <Label Text="Is Admin?" />
-            <StackLayout Orientation="Horizontal">
-                <RadioButton Content="Yes" GroupName="AdminGroup" Value="True" IsChecked="{Binding IsAdmin}" />
-                <RadioButton Content="No" GroupName="AdminGroup" Value="False" IsChecked="{Binding IsAdmin}" />
-            </StackLayout>
-
-            <!-- Age -->
-            <Label Text="Age" />
-            <Picker x:Name="agePicker" Title="Select Age">
+            <!-- Group -->
+            <Label Text="Group:" FontAttributes="Bold" />
+            <Picker x:Name="GroupPicker" Title="Select Group">
                 <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:Int32}">
-                        <x:Int32>20</x:Int32>
-                        <x:Int32>21</x:Int32>
-                        <x:Int32>22</x:Int32>
-                        <x:Int32>23</x:Int32>
-                        <x:Int32>24</x:Int32>
-                        <x:Int32>25</x:Int32>
-                        <x:Int32>26</x:Int32>
-                        <x:Int32>27</x:Int32>
-                        <x:Int32>28</x:Int32>
-                        <x:Int32>29</x:Int32>
-                        <x:Int32>30</x:Int32>
-                        <x:Int32>31</x:Int32>
-                        <x:Int32>32</x:Int32>
-                        <x:Int32>33</x:Int32>
-                        <x:Int32>34</x:Int32>
-                        <x:Int32>35</x:Int32>
-                        <x:Int32>36</x:Int32>
-                        <x:Int32>37</x:Int32>
-                        <x:Int32>38</x:Int32>
-                        <x:Int32>39</x:Int32>
-                        <x:Int32>40</x:Int32>
-                        <x:Int32>41</x:Int32>
-                        <x:Int32>42</x:Int32>
-                        <x:Int32>43</x:Int32>
-                        <x:Int32>44</x:Int32>
-                        <x:Int32>45</x:Int32>
-
-
-                        <!-- Add values up to 70 -->
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Group A</x:String>
+                        <x:String>Group B</x:String>
+                        <x:String>Group C</x:String>
+                        <x:String>Group D</x:String>
+                        <x:String>Group E</x:String>
                     </x:Array>
                 </Picker.ItemsSource>
             </Picker>
 
-            <!-- Domain -->
-            <Label Text="Domain" />
-            <Picker x:Name="domainPicker" Title="Select Domain" SelectedIndexChanged="OnDomainSelected">
-                <!-- Add domain options here -->
+            <!-- Domains (Multiple selection) -->
+            <Label Text="Domains:" FontAttributes="Bold" />
+            <CollectionView x:Name="DomainCollectionView" SelectionMode="Multiple">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal">
+                            <CheckBox x:Name="DomainCheckBox" CheckedChanged="OnDomainCheckedChanged"/>
+                            <Label Text="{Binding .}"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Label Text="Role:" FontAttributes="Bold" />
+            <Picker x:Name="RolePicker" Title="Select Role">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Admin</x:String>
+                        <x:String>Member</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
             </Picker>
+            <!-- Subdomains (Multiple selection) -->
+            <Label Text="Subdomains:" FontAttributes="Bold" />
+            <Picker x:Name="SubdomainPicker" Title="Select Subdomain" />
 
-            <!-- Subdomain (can be a secondary picker, shown based on domain selection) -->
-            <Picker x:Name="subDomainPicker" Title="Select Subdomain" IsVisible="False">
-                <!-- Add subdomain options based on selected domain -->
-            </Picker>
+            <!-- Tasks -->
+            <Label Text="Tasks:" FontAttributes="Bold" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="20">
+                <Button Text="Completed Tasks" Clicked="OnCompletedTasksClicked" />
+                <Button Text="Pending Tasks" Clicked="OnPendingTasksClicked" />
+            </StackLayout>
+
+            <!-- Live DateTime -->
+            <Label x:Name="DateTimeLabel" FontAttributes="Bold" HorizontalOptions="Center" />
+
+            <!-- Save and Close Buttons -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="20">
+                <Button Text="Save" Clicked="OnSaveButtonClicked" />
+                <Button Text="Close" Clicked="OnCloseButtonClicked" />
+            </StackLayout>
+
         </StackLayout>
     </ScrollView>
 </ContentPage>

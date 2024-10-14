@@ -76,12 +76,17 @@ public partial class HomePage : ContentPage
     private void GroupsClicked(object sender, EventArgs e)
     {
 
-        Navigation.PushAsync(new GroupPage());
+        Navigation.PushAsync(new File());
     }
     private void peopleButton(object sender, EventArgs e)
     {
         Navigation.PushAsync(new PeoplePage()); ;
 
+    }
+    private void ProfileClicked(object sender, EventArgs e)
+    {
+
+        Navigation.PushAsync(new ProfilePage());
     }
 
     private void domainButton(object sender, EventArgs e)
@@ -126,6 +131,3 @@ internal class FlyoutMenu
     }
 }
 
-internal class ProfilePage : Page
-{
-}

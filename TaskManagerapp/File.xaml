@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskManagerapp.File"
+             Title="File Upload Page">
+
+    <ScrollView>
+        <StackLayout Padding="20">
+
+            <!-- Profile Section at the top left -->
+            <StackLayout Orientation="Horizontal">
+                <Frame WidthRequest="50" HeightRequest="50" CornerRadius="25" HasShadow="False" Padding="0" BackgroundColor="LightGray">
+                    <Image Source="profile.jpg" Aspect="AspectFill" />
+                </Frame>
+                <Label Text="Sajjad Sharify" VerticalOptions="Center" FontSize="18" Margin="10,0,0,0"/>
+            </StackLayout>
+
+            <!-- Section A: Upload Button -->
+            <StackLayout Margin="20,20,0,0">
+                <Button Text="Upload" x:Name="UploadButton" Clicked="OnUploadButtonClicked"/>
+            </StackLayout>
+
+            <!-- Section B: Link/URL Section -->
+            <StackLayout Margin="20,20,0,0">
+                <Label Text="Or use a link/URL:" FontAttributes="Bold" />
+                <Entry x:Name="UrlEntry" Placeholder="Enter URL here" />
+            </StackLayout>
+
+            <!-- Advanced Section: File Access Control -->
+            <StackLayout Margin="20,20,0,0">
+                <Label Text="Who can access this file?" FontAttributes="Bold" />
+                <Picker x:Name="AccessPicker" Title="Select access level">
+                    <Picker.Items>
+                        <x:String>Admin</x:String>
+                        <x:String>Members</x:String>
+                    </Picker.Items>
+                </Picker>
+            </StackLayout>
+
+            <!-- Save and Close Buttons -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="20,20,0,0">
+                <Button Text="Save" x:Name="SaveButton" Clicked="OnSaveButtonClicked" />
+                <Button Text="Close" x:Name="CloseButton" Clicked="OnCloseButtonClicked" Margin="10,0,0,0" />
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

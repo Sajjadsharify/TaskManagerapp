@@ -1,53 +1,64 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TaskManagerapp.Tasks"
              Title="Tasks"
-             BackgroundColor="#4a4bbf">
+             BackgroundColor="#41a9f7"
+             
+             >
+
+    <!-- StackLayout to hold both the CarouselView and the CollectionView -->
     <StackLayout>
-        <Image
-Source="Resources/Images/alltasks.png"
-           WidthRequest="150"
-           Scale="2.7"
-           Margin="0, 129, 0, 0"/>
-        <Button
-            Padding="10"
-            Text="+"
-            FontSize="30"
-            HeightRequest="60"
-            WidthRequest="60"
-            Clicked="OnAddButtonClicked"
-            HorizontalOptions="End"
-            VerticalOptions="EndAndExpand"
-            BackgroundColor="#4a4bbf"
-            BorderColor="White"
-            BorderWidth="2"
-            TextColor="White"
-            CornerRadius="200"
-            Margin="0,0,20,20"/>
-        <CollectionView
-                ItemsSource="{Binding Tasks}">
+
+        <!-- CarouselView for infographic pictures (SlideView) -->
+        <CarouselView HeightRequest="200" 
+                      Margin="10"
+                      Loop="True" 
+                      x:Name="infographicCarouselView">
+            <CarouselView.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <!-- Replace with your infographic image URLs or paths -->
+                    <x:String>infographic1.png</x:String>
+                    <x:String>infographic2.png</x:String>
+                    <x:String>infographic3.png</x:String>
+                </x:Array>
+            </CarouselView.ItemsSource>
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <!-- Image display for each slide in the Carousel -->
+                    <Image Source="{Binding}" 
+                           Aspect="AspectFill" 
+                           
+                           HeightRequest="200" />
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+
+        <!-- Existing CollectionView for task list (no changes here) -->
+        <CollectionView x:Name="tasksCollectionView">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout
-                    Orientation="Horizontal">
-                        <Image
-                        Source="{Binding ImageSource}"
-                        Aspect="Fill"
-                        WidthRequest="100"
-                        HeightRequest="80"
-                        Margin="0, 0, 20, 0">
-                            <Image.GestureRecognizers>
-                                <!--<TapGestureRecognizer
-                                    Tapped="TapGestureRecognizer_Tapped" />-->
-                            </Image.GestureRecognizers>
-                        </Image>
-                        <Label
-                        Text="{Binding TaskDescription}"
-                        VerticalOptions="Center" />
-                    </StackLayout>
+                    <SwipeView>
+                        <SwipeView.LeftItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete"
+                                           BackgroundColor="Red"
+                                           Invoked="OnDeleteTask"
+                                           CommandParameter="{Binding .}" />
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+
+                        <Frame BorderColor="LightGray" Padding="10" Margin="5" CornerRadius="10" WidthRequest="311" >
+                            <Label Text="{Binding}" HorizontalOptions="Center" TextColor="#41a9f7" FontAttributes="Bold" FontSize="Large"  VerticalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnTaskTapped" CommandParameter="{Binding}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Frame>
+                    </SwipeView>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
     </StackLayout>
+
 </ContentPage>

@@ -9,11 +9,11 @@ public partial class PeoplePage : ContentPage
 {
     private string selectedMember;
 
-    public ObservableCollection<Member> Members { get; set; }
+    public ObservableCollection<UserMember> Members { get; set; }
     public ObservableCollection<Group> Groups { get; set; }
-    public ObservableCollection<Member> FilteredMembers { get; set; }
+    public ObservableCollection<UserMember> FilteredMembers { get; set; }
     public ObservableCollection<Group> FilteredGroups { get; set; }
-    public Member SelectedMember { get; }
+    public UserMember SelectedMember { get; }
     public Group SelectedGroup { get; }
     public Subdomain SelectedSubdomain { get; }
 
@@ -21,13 +21,13 @@ public partial class PeoplePage : ContentPage
     {
         InitializeComponent();
 
-        Members = new ObservableCollection<Member>
+        Members = new ObservableCollection<UserMember>
         {
-            new Member { Username = "Member1", GroupName="group A", PhoneNumber = "09150000000", JobTitle = "Developer", Group = "A" },
-            new Member { Username = "Member2", GroupName="group B", PhoneNumber = "09150000000", JobTitle = "UI Designer", Group = "B" },
-            new Member { Username = "Member3", GroupName="group C", PhoneNumber = "09390000000", JobTitle = "Lead Of Development Team", Group = "C" },
-            new Member { Username = "Member4", GroupName="group D", PhoneNumber = "09370000000", JobTitle = "Lead Of UI Team", Group = "D" },
-            new Member { Username = "Member5", GroupName="group E", PhoneNumber = "09030000000", JobTitle = "Data Scientist", Group = "E" }
+            new UserMember { Username = "Member1", GroupName = "group A", PhoneNumber = "09150000000", JobTitle = "Developer", Group = "A" },
+            new UserMember { Username = "Member2", GroupName = "group B", PhoneNumber = "09150000000", JobTitle = "UI Designer", Group = "B" },
+            new UserMember { Username = "Member3", GroupName = "group C", PhoneNumber = "09390000000", JobTitle = "Lead Of Development Team", Group = "C" },
+            new UserMember { Username = "Member4", GroupName = "group D", PhoneNumber = "09370000000", JobTitle = "Lead Of UI Team", Group = "D" },
+            new UserMember { Username = "Member5", GroupName = "group E", PhoneNumber = "09030000000", JobTitle = "Data Scientist", Group = "E" }
         };
 
         Groups = new ObservableCollection<Group>
@@ -39,7 +39,7 @@ public partial class PeoplePage : ContentPage
             new Group { GroupName = "Group Five", Description = "Marketing Team" }
         };
 
-        FilteredMembers = new ObservableCollection<Member>(Members);
+        FilteredMembers = new ObservableCollection<UserMember>(Members);
         FilteredGroups = new ObservableCollection<Group>(Groups);
         BindingContext = this;
     }
@@ -49,9 +49,9 @@ public partial class PeoplePage : ContentPage
         this.selectedMember = selectedMember;
     }
 
-    public PeoplePage(Member selectedMember1)
+    public PeoplePage(UserMember selectedMember)
     {
-        SelectedMember = selectedMember1;
+        SelectedMember = selectedMember;
     }
 
     public PeoplePage(Group selectedGroup)
@@ -65,39 +65,31 @@ public partial class PeoplePage : ContentPage
     }
 
     // Navigate to a unique page based on the member tapped
-    //private async void OnMemberTapped(object sender, EventArgs e)
-    //{
-    //    var tappedItem = (sender as Microsoft.Maui.Controls.Grid)?.BindingContext as Member;
-
-    //    if (tappedItem != null)
-    //    {
-    //        switch (tappedItem.Username)
-    //        {
-    //            case "Member1":
-    //                await Navigation.PushAsync(new MemberOneDeatilPage());
-    //                break;
-    //            case "Member2":
-    //                await Navigation.PushAsync(new MemberTwoDetailPage());
-    //                break;
-    //            case "Member3":
-    //                await Navigation.PushAsync(new MemberThreeDetailPage());
-    //                break;
-    //            case "Member4":
-    //                await Navigation.PushAsync(new MemberFourDetailPage());
-    //                break;
-    //            case "Member5":
-    //                await Navigation.PushAsync(new MemberFiveDetailPage());
-    //                break;
-    //        }
-    //    }
-    //}
-    //  private async void groupButton(object sender, EventArgs e)
-    //  {
-    //      Navigation.PushAsync(new GroupPage());
-    //  }
     private async void OnMemberTapped(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new FirstMember());
+        var tappedItem = (sender as Microsoft.Maui.Controls.Grid)?.BindingContext as UserMember;
+
+        if (tappedItem != null)
+        {
+            switch (tappedItem.Username)
+            {
+                case "Member1":
+                    await Navigation.PushAsync(new FirstMember());
+                    break;
+               case "Member2":
+                    await Navigation.PushAsync(new FirstMember());
+                    break;
+                case "Member3":
+                    await Navigation.PushAsync(new FirstMember());
+                    break;
+                case "Member4":
+                    await Navigation.PushAsync(new FirstMember());
+                    break;
+                case "Member5":
+                    await Navigation.PushAsync(new FirstMember());
+                    break;
+            }
+        }
     }
 
     // Navigate to a unique page based on the group tapped
@@ -132,7 +124,7 @@ public partial class PeoplePage : ContentPage
     private async void OnDeleteUser(object sender, EventArgs e)
     {
         var swipeItem = sender as SwipeItem;
-        var member = (swipeItem.BindingContext as Member);
+        var member = (swipeItem.BindingContext as UserMember);
 
         if (member != null)
         {
@@ -207,9 +199,17 @@ public partial class PeoplePage : ContentPage
     }
 }
 
+public class UserMember
+{
+    public string Username { get; internal set; }
+    public string GroupName { get; internal set; }
+    public string PhoneNumber { get; internal set; }
+    public string JobTitle { get; internal set; }
+    public string Group { get; internal set; }
+}
+
 public class Group
 {
     public string GroupName { get; internal set; }
     public string Description { get; internal set; }
 }
-

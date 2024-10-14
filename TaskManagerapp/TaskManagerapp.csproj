@@ -76,6 +76,7 @@
 	  <None Remove="Resources\Images\lead.png" />
 	  <None Remove="Resources\Images\loginlogo.png" />
 	  <None Remove="Resources\Images\memberone.png" />
+	  <None Remove="Resources\Images\memberonedetail.png" />
 	  <None Remove="Resources\Images\memberpage.png" />
 	  <None Remove="Resources\Images\membersandgroups.png" />
 	  <None Remove="Resources\Images\membersone.png" />
@@ -83,13 +84,20 @@
 	  <None Remove="Resources\Images\menubar.png" />
 	  <None Remove="Resources\Images\menuicon.png" />
 	  <None Remove="Resources\Images\newmember.png" />
+	  <None Remove="Resources\Images\profile.jpg" />
 	  <None Remove="Resources\Images\profilethree.png" />
 	  <None Remove="Resources\Images\sms.png" />
+	  <None Remove="Resources\Images\taskkkk2.png" />
+	  <None Remove="Resources\Images\taskkkkk1.png" />
+	  <None Remove="Resources\Images\taskkkkkkk3.png" />
 	  <None Remove="Resources\Images\taskmanager.png" />
 	  <None Remove="Resources\Images\taskmanagerapp.png" />
+	  <None Remove="Resources\Images\tasks.png" />
 	  <None Remove="Resources\Images\taskslists.png" />
 	  <None Remove="Resources\Images\trashcan.png" />
 	  <None Remove="Resources\Images\userprofile.png" />
+	  <None Remove="Resources\Images\usertask.png" />
+	  <None Remove="Resources\Images\viewdomain.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -97,6 +105,7 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -125,6 +134,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="DomainTwo.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="File.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="FirstMember.xaml">
@@ -173,6 +185,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="PeoplePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Profile.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ProfilePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="SmsPage.xaml">

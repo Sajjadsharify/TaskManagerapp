@@ -1,144 +1,196 @@
-
-using System.Collections.ObjectModel;
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Storage;
 
 namespace TaskManagerapp
 {
     public partial class FirstMember : ContentPage
     {
-        public ObservableCollection<string> Groups { get; set; }
-        public ObservableCollection<string> Domains { get; set; }
-        public ObservableCollection<string> SubDomains { get; set; }
-        public string SelectedDomain { get; set; }
-        public string UserProfile { get; set; }
+        private List<string> selectedDomains = new List<string>();
 
-
+        private List<string> domains = new List<string>
+    {
+        "Domain A",
+        "Domain B",
+        "Domain C",
+        "Domain D",
+        "Domain E"
+    };
         public FirstMember()
         {
             InitializeComponent();
-            BindingContext = this;
+            // Load saved data from preferences
+            LoadData();
 
-            // Initialize groups and domains
-            Groups = new ObservableCollection<string>
+            // Set the ItemSource for DomainCollectionView
+            DomainCollectionView.ItemsSource = domains;
+
+            // Load saved data from preferences
+            LoadData();
+
+            // Update live DateTime
+            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
-                "Group 1", "Group 2", "Group 3", "Group 4", "Group 5"
-            };
-
-            Domains = new ObservableCollection<string>
-            {
-                "Domain 1", "Domain 2", "Domain 3", "Domain 4", "Domain 5"
-            };
-
-            // Bind Groups and Domains to the UI
-            groupPicker.ItemsSource = Groups;
-            domainPicker.ItemsSource = Domains;
+                DateTimeLabel.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss");
+                return true; // Repeat every second
+            });
         }
 
-
-        private async void OnFileButtonClicked(object sender, EventArgs e)
+        // 1. Edit Profile Picture (with Preferences)
+        private async void OnEditProfilePictureClicked(object sender, EventArgs e)
         {
             try
             {
-                var result = await FilePicker.PickAsync(new PickOptions
-                {
-                    FileTypes = FilePickerFileType.Images,
-                    PickerTitle = "Select a profile image"
-                });
-
+                var result = await MediaPicker.PickPhotoAsync();
                 if (result != null)
                 {
                     var stream = await result.OpenReadAsync();
-                    profileImage.Source = ImageSource.FromStream(() => stream);
+                    var imageData = await ConvertStreamToBase64Async(stream);
+                    Preferences.Set("ProfileImage", imageData);
+                    ProfileImage.Source = ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(imageData)));
                 }
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", "Could not pick a file: " + ex.Message, "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
-        private async void OnSaveButtonClicked(object sender, EventArgs e)
+
+        // Convert Stream to Base64
+        private async Task<string> ConvertStreamToBase64Async(Stream stream)
         {
-            if (!string.IsNullOrEmpty(UserProfile))
+            using (MemoryStream ms = new MemoryStream())
             {
+                await stream.CopyToAsync(ms);
+                return Convert.ToBase64String(ms.ToArray());
+            }
+        }
 
-                await DisplayAlert("Save", "Profile picture has been saved.", "OK");
+        // 2. Load Data (from Preferences)
+        private void LoadData()
+        {
+            NameEntry.Text = Preferences.Get("Name", "");
+            UsernameEntry.Text = Preferences.Get("Username", "");
+            GroupPicker.SelectedItem = Preferences.Get("Group", null);
+            var selectedDomainsString = Preferences.Get("SelectedDomains", string.Empty);
+            selectedDomains = selectedDomainsString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            UpdateCheckBoxStatus();
 
-                await Navigation.PopAsync();
+
+            // ???????? ??? ?????
+            var role = Preferences.Get("Role", "Member"); // ??????? "Member"
+            RolePicker.SelectedItem = role;
+
+
+            var profileImageBase64 = Preferences.Get("ProfileImage", null);
+            if (!string.IsNullOrEmpty(profileImageBase64))
+            {
+                ProfileImage.Source = ImageSource.FromStream(() => new MemoryStream(Convert.FromBase64String(profileImageBase64)));
+            }
+        }
+
+        private void UpdateCheckBoxStatus()
+        {
+        }
+
+        // 3. Save Button Clicked (store real data in Preferences)
+        private void OnSaveButtonClicked(object sender, EventArgs e)
+        {
+            if (NameEntry.Text != null)
+            {
+                Preferences.Set("Name", NameEntry.Text);
+            }
+
+            if (UsernameEntry.Text != null)
+            {
+                Preferences.Set("Username", UsernameEntry.Text);
+            }
+
+            if (GroupPicker.SelectedItem != null)
+            {
+                Preferences.Set("Group", GroupPicker.SelectedItem.ToString());
             }
             else
             {
-                await DisplayAlert("Error", "Please select a profile picture before saving.", "OK");
+                // ??? ???? ?????? ???? ????? ?? ????? ??????? ???? ????
+                Preferences.Set("Group", "DefaultGroup");
             }
+
+            Preferences.Set("Role", RolePicker.SelectedItem?.ToString() ?? "Member");
+
+            Preferences.Set("IsAdmin", AdminSwitch.IsToggled);
+            Preferences.Set("SelectedDomains", string.Join(",", selectedDomains));
+
+            DisplayAlert("Saved", "Your data has been saved!", "OK");
         }
-        private async void OnCancelButtonClicked(object sender, EventArgs e)
+
+
+        // 4. Close Button Clicked
+        private void OnCloseButtonClicked(object sender, EventArgs e)
         {
-            bool confirm = await DisplayAlert("Cancel", "Are you sure you want to cancel? Any unsaved changes will be lost.", "Yes", "No");
-            if (confirm)
+            Navigation.PopAsync(); // Close the page
+        }
+
+        // 5. Task Buttons (Completed and Pending Tasks)
+        private void OnCompletedTasksClicked(object sender, EventArgs e)
+        {
+            // Logic for completed tasks
+            DisplayAlert("Tasks", "Show Completed Tasks", "OK");
+        }
+
+        private void OnPendingTasksClicked(object sender, EventArgs e)
+        {
+            // Logic for pending tasks
+            DisplayAlert("Tasks", "Show Pending Tasks", "OK");
+        }
+        private void OnDomainCheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            var checkBox = (CheckBox)sender;
+            var selectedDomain = checkBox.BindingContext.ToString();
+
+            if (e.Value)
             {
-                await Navigation.PopAsync();
+                // ????? ???? ????? ?? ???? ?????? ???
+                if (!selectedDomains.Contains(selectedDomain))
+                {
+                    selectedDomains.Add(selectedDomain);
+                }
             }
-        }
-        private void OnGroupSelected(object sender, EventArgs e)
-        {
-            var selectedGroups = groupPicker.SelectedItem;
-
-
-        }
-
-        private void OnDomainSelected(object sender, EventArgs e)
-        {
-            var domain = (sender as Picker)?.SelectedItem as string;
-            if (!string.IsNullOrEmpty(domain))
+            else
             {
-                SelectedDomain = domain;
-                UpdateSubDomains(domain);
-                subDomainPicker.IsVisible = true;
+                // ??? ????? ?? ???? ?????? ???
+                if (selectedDomains.Contains(selectedDomain))
+                {
+                    selectedDomains.Remove(selectedDomain);
+                }
             }
         }
-
-        private void UpdateSubDomains(string domain)
-        {
-            SubDomains = new ObservableCollection<string>();
-
-            switch (domain)
-            {
-                case "Domain 1":
-                    SubDomains.Add("Subdomain 1.1");
-                    SubDomains.Add("Subdomain 1.2");
-                    break;
-                case "Domain 2":
-                    SubDomains.Add("Subdomain 2.1");
-                    SubDomains.Add("Subdomain 2.2");
-                    break;
-                default:
-                    SubDomains.Add("No subdomains available");
-                    break;
-            }
-
-            subDomainPicker.ItemsSource = SubDomains;
-        }
     }
 
-    internal class profileImage
+    internal class RolePicker
     {
-        public static ImageSource Source { get; internal set; }
+        public static string SelectedItem { get; internal set; }
     }
 
-    internal class domainPicker
+    internal class DomainCollectionView
     {
-        public static ObservableCollection<string> ItemsSource { get; internal set; }
+        public static List<string> ItemsSource { get; internal set; }
     }
 
-    internal class groupPicker
+    internal class AdminSwitch
     {
-        internal static object SelectedItem;
-
-        public static ObservableCollection<string> ItemsSource { get; internal set; }
-        public static object SelectedItems { get; internal set; }
+        public static string? IsToggled { get; internal set; }
     }
 
-    internal class subDomainPicker
+    internal class GroupPicker
     {
-        public static ObservableCollection<string> ItemsSource { get; internal set; }
-        public static bool IsVisible { get; internal set; }
+        public static string? SelectedItem { get; internal set; }
+    }
+
+    internal class DateTimeLabel
+    {
+        public static string Text { get; internal set; }
     }
 }

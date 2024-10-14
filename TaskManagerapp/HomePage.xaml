@@ -174,7 +174,7 @@
                 <Button 
                     Grid.Row="3"
                     Grid.Column="1"
-                    Text="Groups"
+                    Text="Files"
                     FontAttributes="Bold"
                     TextColor="Black"
                    FontSize="15" 
@@ -187,7 +187,7 @@
                 <Button 
                     Grid.Row="4"
                     Grid.Column="1"
-                    Text="Contact Us -"
+                    Text="Profile"
                     FontAttributes="Bold"
                     TextColor="Black"
                    FontSize="15" 
@@ -196,6 +196,7 @@
                    HeightRequest="40"
                    Margin="-70,-900,0,-700"
                     BackgroundColor="White"
+                    Clicked="ProfileClicked"
                     />
                 <Label Text="Developed By CPSA" Grid.Row="15" Grid.Column="1" Margin="-40,79.5,0,0" FontSize="14.5" TextColor="#4a4bba"/>
 
