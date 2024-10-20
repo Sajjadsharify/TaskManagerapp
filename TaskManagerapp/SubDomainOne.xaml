@@ -2,11 +2,52 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TaskManagerapp.SubDomainOne"
-             Title="SubDomainOne">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             BackgroundColor="White">
+
+    <VerticalStackLayout Padding="30" Spacing="20">
+        <!-- Search Bar -->
+        <SearchBar x:Name="SearchBar" Placeholder="Search..." TextChanged="OnSearchTextChanged" BackgroundColor="#f2f2f2" TextColor="#4a4bba" />
+
+        <!-- Groups List -->
+        <Label Text="Groups" FontSize="20" FontAttributes="Bold" TextColor="#4a4bba" />
+        <CollectionView x:Name="GroupsList" BackgroundColor="White">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="#f2f2f2" CornerRadius="8" Padding="10" Margin="0,5,0,5">
+                        <Label Text="{Binding}" FontSize="18" TextColor="#4a4bba" />
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Members List -->
+        <Label Text="Members" FontSize="20" FontAttributes="Bold" TextColor="#4a4bba" Margin="0,20,0,0" />
+        <CollectionView x:Name="MembersList" BackgroundColor="White">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="#f2f2f2" CornerRadius="8" Padding="10" Margin="0,5,0,5">
+                        <Label Text="{Binding}" FontSize="18" TextColor="#4a4bba" />
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Tasks List -->
+        <Label Text="Tasks" FontSize="20" FontAttributes="Bold" TextColor="#4a4bba" Margin="0,20,0,0" />
+        <CollectionView x:Name="TasksList" BackgroundColor="White">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="#f2f2f2" CornerRadius="8" Padding="10" Margin="0,5,0,5">
+                        <Label Text="{Binding}" FontSize="18" TextColor="#4a4bba" />
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Save and Cancel Buttons -->
+        <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Spacing="10" Margin="0,30,0,0">
+            <Button Text="Save" BackgroundColor="#4a4bba" TextColor="White" CornerRadius="20" WidthRequest="120" Clicked="OnSaveClicked" />
+            <Button Text="Cancel" BackgroundColor="Red" TextColor="White" CornerRadius="20" WidthRequest="120" Clicked="OnCancelClicked" />
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

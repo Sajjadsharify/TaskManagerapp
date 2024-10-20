@@ -53,19 +53,19 @@ public partial class DomainsAndSubdomains : ContentPage
             switch (tappedItem.SubdomainName)
             {
                 case "Subdomain One":
-                    await Navigation.PushAsync(new FirstMember());
+                    await Navigation.PushAsync(new SubDomainOne());
                     break;
                 case "Subdomain Two":
-                    await Navigation.PushAsync(new FirstMember());
+                    await Navigation.PushAsync(new SubDomainTwo());
                     break;
                 case "Subdomain Three":
-                    await Navigation.PushAsync(new FirstMember());
+                    await Navigation.PushAsync(new SubDomainThree());
                     break;
                 case "Subdomain Four":
-                    await Navigation.PushAsync(new FirstMember());
+                    await Navigation.PushAsync(new SubDomainFour());
                     break;
                 case "Subdomain Five":
-                    await Navigation.PushAsync(new FirstMember());
+                    await Navigation.PushAsync(new SubDomainFive());
                     break;
             }
         }

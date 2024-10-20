@@ -6,11 +6,25 @@
 
     <ScrollView>
         <StackLayout Padding="10">
-            <Image Source="domone.png"             />
+            <Image Source="domone.png" />
 
             <!-- Search Bar -->
-            <SearchBar Placeholder="Search Members, Groups, or Subdomains" 
-                       SearchButtonPressed="OnSearch" />
+            <SearchBar Placeholder="Search Members, Groups, or Subdomains"
+                       x:Name="SearchBar"
+                       TextChanged="OnSearchTextChanged" />
+
+            <!-- Sort/Filter Options -->
+            <Picker x:Name="SortFilterPicker" 
+                    Title="Sort/Filter by" 
+                    SelectedIndexChanged="OnSortFilterSelected">
+                <Picker.Items>
+                    <x:String>A-Z</x:String>
+                    <x:String>Z-A</x:String>
+                    <x:String>Developer</x:String>
+                    <x:String>UI Developer</x:String>
+                    <x:String>Mentor</x:String>
+                </Picker.Items>
+            </Picker>
 
             <!-- Bottom of the page -->
             <Label Text="You're Seeing Domain One Details" 
@@ -21,54 +35,75 @@
             <!-- Members List -->
             <Label Text="Members" FontAttributes="Bold" />
             <ScrollView>
-                <ListView x:Name="MembersListView" 
-                      ItemTapped="OnMemberSelected">
+                <ListView x:Name="MembersListView"
+                          ItemTapped="OnMemberSelected"
+                          ItemsSource="{Binding FilteredMembers}">
 
-                    <ListView.ItemsSource>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <SwipeView>
+                                    <!-- Define Swipe Items for Edit and Delete -->
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItem Text="Edit"
+                                                       BackgroundColor="LightGreen"
+                                                       Invoked="OnEditMember" />
+                                            <SwipeItem Text="Delete"
+                                                       BackgroundColor="Red"
+                                                       Invoked="OnDeleteMember" />
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
 
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Member 1 - Job Title</x:String>
-                            <x:String>Member 2 - Job Title</x:String>
-                            <x:String>Member 3 - Job Title</x:String>
-                        </x:Array>
-                    </ListView.ItemsSource>
+                                    <!-- Display Member Info -->
+                                    <StackLayout Padding="2">
+                                        <Label Text="{Binding Name}" FontSize="Medium" />
+                                        <Label Text="{Binding Role}" FontSize="Small" TextColor="Gray" />
+                                    </StackLayout>
+                                </SwipeView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
             </ScrollView>
-            <Button Text="Add New Member" Clicked="OnAddNewMemberClicked" />
+            <Button Text="Add New Member" />
 
-            <!-- Groups List -->
-            <Label Text="Groups" FontAttributes="Bold" />
-            <ScrollView>
-                <ListView x:Name="GroupsListView" 
-                      ItemTapped="OnGroupSelected">
-                    <ListView.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Group 1 - Job Position</x:String>
-                        </x:Array>
-                    </ListView.ItemsSource>
-                </ListView>
-            </ScrollView>
+            <!-- Swipeable Lists for Groups and Subdomains -->
+            <SwipeView>
+                <Label Text="Groups" FontAttributes="Bold" />
+                <ScrollView>
+                    <ListView x:Name="GroupsListView" 
+                              ItemTapped="OnGroupSelected">
+                        <ListView.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Group 1 - Job Position</x:String>
+                            </x:Array>
+                        </ListView.ItemsSource>
+                    </ListView>
+                </ScrollView>
+            </SwipeView>
             <Button Text="Add New Job" Clicked="OnAddNewJobClicked" />
 
-            <!-- Subdomains List -->
-            <Label Text="Subdomains" FontAttributes="Bold" />
-            <ScrollView>
-                <ListView x:Name="SubdomainsListView" 
-                      ItemTapped="OnSubdomainSelected">
-                    <ListView.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Subdomain 1</x:String>
-                            <x:String>Subdomain 2</x:String>
-                            <x:String>Subdomain 3</x:String>
-                            <x:String>Subdomain 4</x:String>
-                            <x:String>Subdomain 5</x:String>
-                            <x:String>Subdomain 6</x:String>
-                        </x:Array>
-                    </ListView.ItemsSource>
-                </ListView>
-            </ScrollView>
+            <SwipeView>
+                <Label Text="Subdomains" FontAttributes="Bold" />
+                <ScrollView>
+                    <ListView x:Name="SubdomainsListView" 
+                              ItemTapped="OnSubdomainSelected">
+                        <ListView.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Subdomain 1</x:String>
+                                <x:String>Subdomain 2</x:String>
+                                <x:String>Subdomain 3</x:String>
+                                <x:String>Subdomain 4</x:String>
+                                <x:String>Subdomain 5</x:String>
+                                <x:String>Subdomain 6</x:String>
+                            </x:Array>
+                        </ListView.ItemsSource>
+                    </ListView>
+                </ScrollView>
+            </SwipeView>
             <Button Text="Apply New Sub Domain" Clicked="OnApplyNewSubdomainClicked" />
-            <Button Text="Edit Domain" Clicked="EditdomainClicked" BackgroundColor="White" FontSize="15" TextColor="#4a4bba" FontAttributes="Bold" BorderWidth="1" BorderColor="#4a4bba"  Margin="5"/>
+            <Button Text="Edit Domain" Clicked="EditdomainClicked" BackgroundColor="White" FontSize="15" TextColor="#4a4bba" FontAttributes="Bold" BorderWidth="1" BorderColor="#4a4bba" Margin="5"/>
 
             <!-- Action Buttons -->
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
@@ -82,6 +117,13 @@
                         Clicked="OnSaveClicked" />
             </StackLayout>
 
+            <!-- Live Date -->
+            <Label x:Name="LiveDateLabel" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="End" 
+                   FontSize="Small" 
+                   TextColor="Gray" 
+                   Margin="10"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

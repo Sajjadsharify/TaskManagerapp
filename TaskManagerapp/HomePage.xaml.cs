@@ -120,6 +120,9 @@ public class Member
     internal string PhoneNumber;
     internal string JobTitle;
     internal string Group;
+
+    public string Name { get; internal set; }
+    public string Role { get; internal set; }
 }
 
 internal class FlyoutMenu
